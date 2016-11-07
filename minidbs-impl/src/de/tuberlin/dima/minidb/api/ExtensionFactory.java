@@ -13,6 +13,7 @@ import de.tuberlin.dima.minidb.io.cache.PageSize;
 import de.tuberlin.dima.minidb.io.index.BTreeIndex;
 import de.tuberlin.dima.minidb.io.manager.BufferPoolManager;
 import de.tuberlin.dima.minidb.io.tables.TablePage;
+import de.tuberlin.dima.minidb.io.tables.TablePageImpl;
 import de.tuberlin.dima.minidb.io.tables.TableResourceManager;
 import de.tuberlin.dima.minidb.mapred.TableInputFormat;
 import de.tuberlin.dima.minidb.mapred.qexec.BulkProcessingOperator;
@@ -29,6 +30,7 @@ import de.tuberlin.dima.minidb.qexec.predicate.JoinPredicate;
 import de.tuberlin.dima.minidb.qexec.predicate.LocalPredicate;
 import de.tuberlin.dima.minidb.semantics.SelectQueryAnalyzer;
 import de.tuberlin.dima.minidb.warm_up.Sort;
+import de.tuberlin.dima.minidb.warm_up.SortImpl;
 
 import java.util.logging.Logger;
 
@@ -41,13 +43,16 @@ public class ExtensionFactory extends AbstractExtensionFactory {
 
 	@Override
 	public TablePage createTablePage(TableSchema schema, byte[] binaryPage) throws PageFormatException {
-		throw new UnsupportedOperationException("Method not yet supported");
+		return new TablePageImpl(schema,binaryPage);
+		//throw new UnsupportedOperationException("Method not yet supported");
 	}
 
 	@Override
 	public TablePage initTablePage(TableSchema schema, byte[] binaryPage, int newPageNumber) throws PageFormatException {
-		throw new UnsupportedOperationException("Method not yet supported");
+		return new  TablePageImpl(schema,binaryPage,newPageNumber);
+		//throw new UnsupportedOperationException("Method not yet supported");
 	}
+
 
 	@Override
 	public PageCache createPageCache(PageSize pageSize, int numPages) {
@@ -194,6 +199,8 @@ public class ExtensionFactory extends AbstractExtensionFactory {
 
 	@Override
 	public Sort createSortOperator() {
-		throw new UnsupportedOperationException("Method not yet supported");
+		Sort a = new SortImpl();
+		return  a;
+		//throw new UnsupportedOperationException("Method not yet supported");
 	}
 }
